@@ -8,7 +8,6 @@ public class SpringWebFluxR2DbcMariadbApplication {
 
 	public static void main(String[] args) {
 	 	SpringApplication.run(SpringWebFluxR2DbcMariadbApplication.class, args);
-	 	
 	}
 
 }
