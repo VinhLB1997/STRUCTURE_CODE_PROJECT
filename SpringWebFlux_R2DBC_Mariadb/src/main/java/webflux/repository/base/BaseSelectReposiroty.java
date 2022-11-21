@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public abstract class BaseSelectReposiroty<T, ID> extends BaseActiveRepository<T, ID>{
+public abstract class BaseSelectReposiroty<T, ID> extends BaseActiveRepository<T, ID> {
 
     private static final String DEFAULT_PRIMARY_KEY_NAME = "id";
     protected static final String DEFAULT_DELETE_FLAG_NAME = "delete_flag";
@@ -19,6 +19,7 @@ public abstract class BaseSelectReposiroty<T, ID> extends BaseActiveRepository<T
     protected abstract Class<T> getJavaType();
 
     protected abstract String getPrimaryKey();
+
     protected String deleteFlagName() {
         return DEFAULT_DELETE_FLAG_NAME;
     }
