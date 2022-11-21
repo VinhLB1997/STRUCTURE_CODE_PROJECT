@@ -8,7 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import webflux.config.log.MarkersInfo;
+import webflux.dto.UserDTO;
 import webflux.entity.UserEntity;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,5 +67,12 @@ class UserRepositoryTest {
     void deleteLogic() {
         UserEntity userNeedDelete = userRepository.findByEmailExits("user@gmail.com").blockFirst();
         UserEntity userDeleted = userRepository.delete(userNeedDelete, "logic").block();
+    }
+
+    @Test
+    void testFindAllUser() {
+       List<UserDTO> usersDto = userRepository.findAllUser().collectList().block();
+       System.out.println(usersDto.size());
+        usersDto.stream().forEach(System.out::println);
     }
 }

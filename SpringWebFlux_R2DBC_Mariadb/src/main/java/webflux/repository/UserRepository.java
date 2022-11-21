@@ -5,8 +5,10 @@ import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import webflux.dto.UserDTO;
 import webflux.entity.UserEntity;
 import webflux.repository.base.BaseSelectReposiroty;
+import webflux.repository.mapper.UserListMapper;
 
 @Repository
 public class UserRepository extends BaseSelectReposiroty<UserEntity, Long> {
@@ -19,6 +21,8 @@ public class UserRepository extends BaseSelectReposiroty<UserEntity, Long> {
     protected String getPrimaryKey() {
         return super.getPrimaryKeyName();
     }
+
+    /*---------- Methods for Inserting and Updating Entities ( Base CRUD using) ------------*/
 
     /**
      * findByEmailExits
@@ -63,6 +67,25 @@ public class UserRepository extends BaseSelectReposiroty<UserEntity, Long> {
             return super.operation.update(user);
         }
         return Mono.empty();
+    }
+    /*---------- Methods for Inserting and Updating Entities ( Base CRUD using) ------------*/
+
+    /**
+     * Tìm kiếm tất cả user.
+     *
+     * @return the flux
+     */
+    public Flux<UserDTO> findAllUser() {
+        return Mono.defer(() -> {
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT u.* FROM user u ");
+            sql.append("WHERE u.delete_flag = 0 ");
+            sql.append(" ORDER BY ").append("create_date").append(" DESC ");
+            return Mono.just(sql.toString());
+        }).flatMapMany(sql -> {
+            UserListMapper mapper = new UserListMapper();
+            return this.operation.getDatabaseClient().sql(sql).map(mapper).all();
+        });
     }
 
 }
