@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringWebFluxR2DbcMariadbApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringWebFluxR2DbcMariadbApplication.class, args);
+	 	SpringApplication.run(SpringWebFluxR2DbcMariadbApplication.class, args);
+	 	
 	}
 
 }
