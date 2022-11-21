@@ -72,7 +72,7 @@ public class DatabaseConnectConfig {
         return pool;
     }
 
-    @Bean(name = "saveEntityTemplate")
+    @Bean(name = "entityTemplate")
     R2dbcEntityOperations saveEntityTemplate(@Qualifier("connectionFactory") ConnectionFactory connectionFactory) {
         return new R2dbcEntityTemplate(connectionFactory);
     }

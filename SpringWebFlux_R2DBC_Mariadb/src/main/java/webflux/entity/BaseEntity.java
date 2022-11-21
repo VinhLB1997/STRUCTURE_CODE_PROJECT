@@ -1,11 +1,13 @@
 package webflux.entity;
 
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.relational.core.mapping.Column;
 
 import java.time.LocalDateTime;
 
 @Data
+@ToString
 public class BaseEntity {
 
     @Column("delete_flag")
