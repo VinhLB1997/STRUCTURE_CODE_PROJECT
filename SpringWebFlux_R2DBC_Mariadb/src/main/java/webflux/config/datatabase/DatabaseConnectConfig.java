@@ -1,19 +1,16 @@
 package webflux.config.datatabase;
 
-import java.time.Duration;
-
+import io.r2dbc.pool.ConnectionPool;
+import io.r2dbc.pool.ConnectionPoolConfiguration;
 import io.r2dbc.proxy.ProxyConnectionFactory;
 import io.r2dbc.proxy.support.QueryExecutionInfoFormatter;
+import io.r2dbc.spi.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.mariadb.r2dbc.MariadbConnectionConfiguration;
 import org.mariadb.r2dbc.MariadbConnectionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import io.r2dbc.pool.ConnectionPool;
-import io.r2dbc.pool.ConnectionPoolConfiguration;
-import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
@@ -22,6 +19,8 @@ import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import webflux.config.WebConfig;
 import webflux.config.log.MarkersInfo;
+
+import java.time.Duration;
 
 @Configuration
 @Slf4j

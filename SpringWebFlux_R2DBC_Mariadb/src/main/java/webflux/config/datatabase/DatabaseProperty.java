@@ -1,15 +1,14 @@
 package webflux.config.datatabase;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import lombok.Data;
 
 @Component
 @Data
 public class DatabaseProperty {
-	
-	@Value("${connection.r2dbc.select.host}")
+
+    @Value("${connection.r2dbc.select.host}")
     private String selectHost;
 
     @Value("${connection.r2dbc.save.host}")

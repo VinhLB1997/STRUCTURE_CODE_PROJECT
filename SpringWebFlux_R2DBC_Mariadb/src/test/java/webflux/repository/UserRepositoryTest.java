@@ -67,8 +67,8 @@ class UserRepositoryTest {
 
     @Test
     void testFindAllUser() {
-       List<UserDTO> usersDto = userRepository.findAllUser().collectList().block();
-       System.out.println(usersDto.size());
+        List<UserDTO> usersDto = userRepository.findAllUser().collectList().block();
+        System.out.println(usersDto.size());
         usersDto.stream().forEach(System.out::println);
     }
 }

@@ -9,11 +9,10 @@ import reactor.core.publisher.Mono;
 
 public abstract class BaseSelectReposiroty<T, ID> extends BaseActiveRepository<T, ID> {
 
-    private static final String DEFAULT_PRIMARY_KEY_NAME = "id";
     protected static final String DEFAULT_DELETE_FLAG_NAME = "delete_flag";
     protected static final String DEFAULT_SORT_BY_CREATE_DATE = "create_date";
     protected static final String DEFAULT_SORT_BY_UPDATE_DATE = "update_date";
-
+    private static final String DEFAULT_PRIMARY_KEY_NAME = "id";
     private static boolean findByDelete = true;
 
     protected abstract Class<T> getJavaType();

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import webflux.dto.UserDTO;
-import webflux.entity.UserEntity;
 import webflux.request.CreateUserRequest;
 import webflux.service.UserService;
 
@@ -31,14 +30,14 @@ class UserServiceImplTest {
 
     @Test
     void saveUser() {
-       Boolean result = userService.saveUser(request).block();
-       System.out.println(result);
+        Boolean result = userService.saveUser(request).block();
+        System.out.println(result);
     }
 
     @Test
     void updateUser() {
-       Boolean result = userService.updateUser(4L, request).block();
-       System.out.println(result);
+        Boolean result = userService.updateUser(4L, request).block();
+        System.out.println(result);
     }
 
     @Test

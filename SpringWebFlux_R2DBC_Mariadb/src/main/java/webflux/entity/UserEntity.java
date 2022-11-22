@@ -12,7 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @ToString
 @Table("user")
 @EqualsAndHashCode(callSuper = false)
-public class UserEntity extends BaseEntity{
+public class UserEntity extends BaseEntity {
 
     @Id
     @Column("id")
