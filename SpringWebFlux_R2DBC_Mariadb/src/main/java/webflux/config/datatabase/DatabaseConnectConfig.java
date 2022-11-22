@@ -8,6 +8,7 @@ import io.r2dbc.spi.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.mariadb.r2dbc.MariadbConnectionConfiguration;
 import org.mariadb.r2dbc.MariadbConnectionFactory;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,7 +61,7 @@ public class DatabaseConnectConfig {
                 .newLine();
         ConnectionFactory proxyConnectionFactory = ProxyConnectionFactory.builder(connectionFactory)
                 .onAfterQuery(queryInfo -> { // listener
-                    log.info(MarkersInfo.SQL, formatter.format(queryInfo));
+                    log.info(MarkerFactory.getMarker("SQL"), formatter.format(queryInfo));
                 }).build();
 
         ConnectionPoolConfiguration configuration = ConnectionPoolConfiguration.builder(proxyConnectionFactory)
