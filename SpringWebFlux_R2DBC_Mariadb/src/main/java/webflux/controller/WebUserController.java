@@ -10,6 +10,8 @@ import webflux.response.common.ResultBooleanResponse;
 import webflux.response.common.RootResponse;
 import webflux.service.UserService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(WebConst.API_WEB_ADMIN_TENANT)
 public class WebUserController extends BaseController {
@@ -39,7 +41,7 @@ public class WebUserController extends BaseController {
      * @return the mono
      */
     @PostMapping("/users")
-    public Mono<ResponseEntity<RootResponse>> createUser(@RequestBody CreateUserRequest user) {
+    public Mono<ResponseEntity<RootResponse>> createUser(@Valid @RequestBody CreateUserRequest user) {
         return userService.saveUser(user).map(x -> {
             return success(new ResultBooleanResponse(x));
         }).onErrorResume(super::handleExceptionLocal);
@@ -53,7 +55,7 @@ public class WebUserController extends BaseController {
      * @return the mono
      */
     @PutMapping("/users/{userId}")
-    public Mono<ResponseEntity<RootResponse>> updateUser(@PathVariable("userId") Long userId, @RequestBody CreateUserRequest user) {
+    public Mono<ResponseEntity<RootResponse>> updateUser(@PathVariable("userId") Long userId,@Valid @RequestBody CreateUserRequest user) {
         return userService.updateUser(userId, user).map(x -> {
             return success(new ResultBooleanResponse(x));
         }).onErrorResume(super::handleExceptionLocal);
