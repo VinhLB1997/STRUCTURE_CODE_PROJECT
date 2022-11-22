@@ -3,8 +3,10 @@ package webflux.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import webflux.common.Messages;
 import webflux.dto.UserDTO;
 import webflux.entity.UserEntity;
+import webflux.exception.runtime.DataNotFoundException;
 import webflux.repository.UserRepository;
 import webflux.request.CreateUserRequest;
 import webflux.service.UserService;
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Boolean> updateUser(Long userId, CreateUserRequest user) {
-        return userRepository.findById(userId).switchIfEmpty(Mono.empty())
+        return errorIfEmpty(userRepository.findById(userId), Messages.DATA_NOT_FOUND)
                 .map(entity -> {
                     mapper.map(user, entity);
                     return entity;
@@ -47,19 +49,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Boolean> deleteUser(Long userId) {
-        return userRepository.findById(userId)
-                .switchIfEmpty(Mono.empty())
+        return errorIfEmpty(userRepository.findById(userId), Messages.DATA_NOT_FOUND)
                 .flatMap(entity -> userRepository.delete(entity, "logic"))
                 .thenReturn(true);
     }
 
     @Override
     public Mono<UserDTO> findUserDetail(Long userId) {
-        return userRepository.findById(userId).map(entity -> mapper.map(entity, UserDTO.class));
+        return errorIfEmpty(userRepository.findById(userId), Messages.DATA_NOT_FOUND)
+                .map(entity -> mapper.map(entity, UserDTO.class));
     }
 
     @Override
     public Mono<List<UserDTO>> findAllUser() {
         return userRepository.findAllUser().collectList();
     }
+
+    /**
+     * Common check entity exist
+     * if have entity continue else
+     * Return Mono.error
+     *
+     * @return the mono
+     */
+    private <R> Mono<R> errorIfEmpty(Mono<R> mono, String message) {
+        return mono.switchIfEmpty(Mono.defer(() -> Mono.error(new DataNotFoundException(message))));
+    }
+
 }

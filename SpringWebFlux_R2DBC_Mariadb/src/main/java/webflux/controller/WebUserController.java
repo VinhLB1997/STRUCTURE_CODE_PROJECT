@@ -42,7 +42,7 @@ public class WebUserController extends BaseController {
     public Mono<ResponseEntity<RootResponse>> createUser(@RequestBody CreateUserRequest user) {
         return userService.saveUser(user).map(x -> {
             return success(new ResultBooleanResponse(x));
-        });
+        }).onErrorResume(super::handleExceptionLocal);
     }
 
     /**
@@ -56,7 +56,7 @@ public class WebUserController extends BaseController {
     public Mono<ResponseEntity<RootResponse>> updateUser(@PathVariable("userId") Long userId, @RequestBody CreateUserRequest user) {
         return userService.updateUser(userId, user).map(x -> {
             return success(new ResultBooleanResponse(x));
-        });
+        }).onErrorResume(super::handleExceptionLocal);
     }
 
     /**
@@ -69,6 +69,6 @@ public class WebUserController extends BaseController {
     public Mono<ResponseEntity<RootResponse>> deleteUser(@PathVariable("userId") Long userId) {
         return userService.deleteUser(userId).map(x -> {
             return success(new ResultBooleanResponse(x));
-        });
+        }).onErrorResume(super::handleExceptionLocal);
     }
 }
