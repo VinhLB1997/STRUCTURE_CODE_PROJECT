@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserDTO {
-    private Long id;
+    private Long userId;
     private String fullName;
     private String email;
     private Integer role;

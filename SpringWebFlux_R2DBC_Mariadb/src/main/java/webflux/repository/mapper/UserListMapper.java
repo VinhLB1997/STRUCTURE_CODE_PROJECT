@@ -11,7 +11,7 @@ public class UserListMapper implements BiFunction<Row, RowMetadata, UserDTO> {
     @Override
     public UserDTO apply(Row row, RowMetadata u) {
         UserDTO dto = new UserDTO();
-        dto.setId(Long.parseLong(row.get("id").toString()));
+        dto.setUserId(Long.parseLong(row.get("id").toString()));
         dto.setEmail((String) row.get("email"));
         dto.setRole((Integer) row.get("user_role"));
         dto.setFullName((String) row.get("full_name"));
